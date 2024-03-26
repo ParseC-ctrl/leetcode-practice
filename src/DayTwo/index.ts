@@ -202,19 +202,38 @@ function moveZeroes(nums: number[]): void {
   }
 }
 
-let s = "a##c",
-  t = "#a#c";
+let s = "1a##c",
+  t = "11#a#c";
 
-function backspaceCompare(s: string, t: string): boolean {
-  let slow = s.length - 1;
-  let fast = s.length - 1
-  for (; fast >= 0; fast--) {
-    if(s[fast] !== t[slow]) return false
-    if(s[fast] === t[slow] && s[fast] !=="#") slow--
-    if(t[slow] === "#") slow -= 2
-    if(s[fast] === "#") fast-- 
+function backspaceCompare(s: string, t: string) {
+  let sSkipNum = 0,
+    tSkipNum = 0;
+  let i = s.length - 1,
+    j = t.length - 1;
+  while (1) {
+    while (i >= 0) {
+      if (s[i] === "#") {
+        sSkipNum++;
+      } else {
+        if (sSkipNum > 0) sSkipNum--;
+        else break;
+      }
+      i--;
+    }
+    while (j >= 0) {
+      if (t[j] === "#") {
+        tSkipNum++;
+      } else {
+        if (tSkipNum > 0) tSkipNum--;
+        else break;
+      }
+      j--;
+    }
+    if (i < 0 || j < 0) break; // S 或者T 遍历到头了
+    if (s[i] != t[j]) return false;
+    i--;
+    j--;
   }
-  return true  
+  if (i == -1 && j == -1) return true;
+  return false;
 }
-console.log(backspaceCompare(s,t));
-
