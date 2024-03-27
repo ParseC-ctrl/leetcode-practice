@@ -2,8 +2,8 @@
   "compilerOptions": {
     "module": "CommonJS",
     "target": "ES2018",
-    "lib": ["ES2016"],
-    "outDir" : "./dist"
+    "lib": ["ES2015", "DOM"],
+    "outDir": "./dist"
   },
   "include": ["./src/**/*"]
 }
