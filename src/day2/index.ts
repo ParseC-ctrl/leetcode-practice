@@ -237,3 +237,52 @@ function backspaceCompare(s: string, t: string) {
   if (i == -1 && j == -1) return true;
   return false;
 }
+
+const Array6 = [-5, -3, -2, -1];
+function sortedSquares(nums: number[]): number[] {
+  let fast = nums.length - 1,
+    slow = 0,
+    k = nums.length;
+  let result = new Array(k);
+  while (slow <= fast) {
+    let i = nums[slow],
+      j = nums[fast];
+    if (i * i > j * j) {
+      result[--k] = i * i;
+      slow++;
+    } else {
+      result[--k] = j * j;
+      fast--;
+    }
+  }
+  return result;
+}
+
+const Array7 = [2, 3, 1, 2, 4, 3];
+function minSubArrayLen(target: number, nums: number[]): number {
+  let minLength = Infinity;
+  let slow = 0,
+    fast = 0,
+    sum = 0;
+  for (fast = 0; fast < nums.length; ) {
+    if (nums[fast] >= target) return (minLength = 1);
+    if (sum >= target) {
+      console.log("sum1", sum);
+      console.log(fast, slow);
+      let length = fast - slow;
+      console.log("length", length);
+      if (length <= minLength) {
+        minLength = length;
+        sum -= nums[slow];
+        slow++;
+        console.log("sum2", sum);
+      }
+    } else {
+      sum += nums[fast];
+      fast++;
+    }
+  }
+  return minLength;
+}
+
+console.log(minSubArrayLen(7, Array7));
